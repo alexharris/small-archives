@@ -8,8 +8,8 @@
             </div>
         </div>
         <form class="">
-            <input class="border" type="text" v-model="newCollectionId">
-            <button  type="button" @click="addCollection">
+            <input class="border border-blue-600" type="text" v-model="newCollectionId">
+            <button  class="px-2 text-white bg-blue-600 rounded" type="button" @click="addCollection">
                 New Collection
             </button>  
         </form>          
@@ -39,6 +39,7 @@
         },
         methods: {         
             getCollections() {
+                this.collections = []
                 firebase.firestore().collection('users').doc(this.userEmail).collection('Collections').get().then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
                         // doc.data() is never undefined for query doc snapshots

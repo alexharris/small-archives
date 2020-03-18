@@ -1,5 +1,6 @@
 <template>
     <div>
+        
     <nuxt-link class="pr-4" :to="'/' + username + '/' + collection">View Collection</nuxt-link>
        <div v-if="editingTitle == false">
            
@@ -17,6 +18,7 @@
                 </button>                  
             </form>  
         </div>
+        <h2 class="text-xl py-4">Items in collection:</h2>
        <ul>
            <li class="text-xl" v-for="item in items">{{item}} <span class="rounded-full bg-red-200 cursor-pointer hover:bg-red-600 w-4 h-4 inline-block text-center text-sm" @click="removeItem(item)"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span></li>
        </ul>
@@ -26,7 +28,15 @@
                 Add Item
             </button>  
         </form>  
-
+        <div class="border border-red-300 rounded p-4 mt-8">
+            <span class="text-red-600 cursor-pointer" v-if="confirmDelete == false" @click="confirmDelete = true">Delete</span>
+            <div class="text-red-600 cursor-pointer" v-else>
+                <div class="pb-2">Really Delete Forever?</div>
+                <div>
+                    <div class="p-2 bg-red-600 text-white inline-block mr-4" @click="deleteCollection()">Yes Delete</div><div @click="confirmDelete = false" class="p-2 border border-red-600 text-red-600 inline-block">No Don't</div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -49,7 +59,8 @@
                 items: [],
                 newItemId: '',
                 userEmail: '',
-                editingTitle: false
+                editingTitle: false,
+                confirmDelete: false
             }
         },
         computed: {
@@ -123,7 +134,15 @@
                         })
                     }
                 });                
-            }                                        
+            },
+            deleteCollection() {
+                firebase.firestore().collection("users").doc(this.userEmail).collection('Collections').doc(this.collection).delete().then(() => {
+                    console.log("Document successfully deleted!");
+                    this.$router.replace('/admin/' + this.username) 
+                }).catch(function(error) {
+                    console.error("Error removing document: ", error);
+                });
+            }                                      
         }
     }
     </script>

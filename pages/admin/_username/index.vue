@@ -2,6 +2,12 @@
 
 <template>
     <div>
+        <div class="rounded w-full p-4 mt-4 bg-blue-200">
+
+            <strong>Email: </strong>{{signedInUser.email}}<br />
+            <strong>Username: </strong>{{username}}</strong>
+        </div>     
+        <h1 class="text-3xl pt-8 pb-4">Collections</h1>
         <UserCollections />
     </div>
     

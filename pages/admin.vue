@@ -2,12 +2,11 @@
 
 <template>
     <div v-if="signedInUser.email == userFromUrl">
-        <div class="flex flex-row w-full bg-gray-200 justify-between p-4">
-        <nuxt-link :to="'/admin/' + username">Dashboard</nuxt-link>
-        <span>{{signedInUser.email}}</span>
-        <SignOut />
+        <div class="flex flex-row w-full border-b mb-2 border-black justify-between p-4">
+            <nuxt-link :to="'/admin/' + username">Dashboard</nuxt-link>
+            <span>{{signedInUser.email}}</span>
+            <SignOut />
         </div>
-        
 
         <nuxt-child/>
         
