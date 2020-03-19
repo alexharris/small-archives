@@ -1,36 +1,34 @@
 <template>
-    <div>
+    <div >
+
+            <h1 class="text-2xl pb-4">Sign In</h1>
+            <p>Thanks for creating an account. Please note that the username you select will be used in public URLs used to access your collections.</p>
+
+
         <FormError v-if="error">
             {{error}}
         </FormError>
-        <div class="border p-4">
-            Sign In
+        <form class="card-body ">       
+            <!-- Email -->
+            <div class="form-group row justify-content-center">
+            
+            <div class="my-2">
+                <label for="inputEmail">Email</label><br />
+                <input type="email" class="form-control border border-blue-800 p-2 w-full" id="inputEmail" placeholder="Email" v-model="email">
+            </div>
+            </div>
+            <!-- Password -->
+            <div class="form-group row justify-content-center">
+            
+            <div class="my-2">
+                <label for="inputPassword">Password</label><br />
+                <input type="password" class="form-control border border-blue-800 p-2 w-full" id="inputPassword" placeholder="Password" v-model="password">
+            </div>
+            </div>                 
 
-            <form class="card-body">
-                <!-- Email -->
-                <div class="form-group row justify-content-center">
-                
-                <div class="col-sm-10">
-                    <label for="inputEmail">Email</label>
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" v-model="email">
-                </div>
-                </div>
-                <!-- Password -->
-                <div class="form-group row justify-content-center">
-                
-                <div class="col-sm-10">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" v-model="password">
-                </div>
-                </div>                 
-                <div class="row justify-content-center pt-3">
-                <div class="col-sm-10">
-                    <div class="btn btn-dark " @click="userSignedIn">Sign In</div>
-                </div>
-                </div>
-                
-            </form>
-        </div>
+            <div class="hover:bg-blue-800 inline-block p-2 rounded bg-white border border-blue-800 hover:text-white cursor-pointer" @click="userSignedIn()">Sign In</div>
+        </form>
+   
     </div>
 </template>
 <script>
