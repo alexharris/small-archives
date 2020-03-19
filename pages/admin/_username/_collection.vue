@@ -1,41 +1,47 @@
 <template>
-    <div>
+    <div class="flex flex-col md:flex-row items-start">
         
-    <nuxt-link class="pr-4" :to="'/' + username + '/' + collection">View Collection</nuxt-link>
-       <div v-if="editingTitle == false">
-           
-           <h1 class="text-3xl inline-block">{{collection}}</h1>
-           <span class="pl-2 cursor-pointer" @click="editingTitle = true">edit title</span>
-       </div>
-        <div v-else>
-            <form class="pt-8">
-                <input class="border border-blue-600"  type="text" v-model="newCollectionTitle">
-                <button class="bg-blue-600 rounded px-2 text-white" type="button" @click="changeCollectionTitle()">
-                    Save
-                </button>  
-                <button class="bg-red-600 rounded px-2 text-white" type="button" @click="editingTitle = false">
-                    Cancel
-                </button>                  
-            </form>  
-        </div>
-        <h2 class="text-xl py-4">Items in collection:</h2>
-       <ul>
-           <li class="text-xl" v-for="item in items">{{item}} <span class="rounded-full bg-red-200 cursor-pointer hover:bg-red-600 w-4 h-4 inline-block text-center text-sm" @click="removeItem(item)"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span></li>
-       </ul>
-        <form class="pt-8">
-            <input class="border border-blue-600"  type="text" v-model="newItemId">
-            <button class="bg-blue-600 rounded px-2 text-white" type="button" @click="addItem">
-                Add Item
-            </button>  
-        </form>  
-        <div class="border border-red-300 rounded p-4 mt-8">
-            <span class="text-red-600 cursor-pointer" v-if="confirmDelete == false" @click="confirmDelete = true">Delete</span>
-            <div class="text-red-600 cursor-pointer" v-else>
-                <div class="pb-2">Really Delete Forever?</div>
-                <div>
-                    <div class="p-2 bg-red-600 text-white inline-block mr-4" @click="deleteCollection()">Yes Delete</div><div @click="confirmDelete = false" class="p-2 border border-red-600 text-red-600 inline-block">No Don't</div>
-                </div>
+        <div class="w-full md:w-3/4 mr-8">
+            <div v-if="editingTitle == false">
+                
+                <h1 class="text-3xl inline-block">{{collection}}</h1>
+                <span class="pl-2 cursor-pointer" @click="editingTitle = true">edit title</span>
             </div>
+                <div v-else>
+                    <form class="pt-8">
+                        <input class="border border-blue-600"  type="text" v-model="newCollectionTitle">
+                        <button class="bg-blue-600 rounded px-2 text-white" type="button" @click="changeCollectionTitle()">
+                            Save
+                        </button>  
+                        <button class="bg-red-600 rounded px-2 text-white" type="button" @click="editingTitle = false">
+                            Cancel
+                        </button>                  
+                    </form>  
+                </div>
+                <h2 class="py-4 uppercase">Items in collection</h2>
+            <ul>
+                <li class="text-xl border-b border-blue-800 p-2 flex flex-row flex-wrap justify-between hover:bg-gray-200 items-center" v-for="item in items">{{item}} <span class="flex flex-row text-red-600 text-sm cursor-pointer border border-red-600 rounded px-1" @click="removeItem(item)">Remove</span></li>
+            </ul>
+            <form class="pt-8">
+                <input class="border border-blue-800 p-2 rounded" placeholder="Item id" type="text" v-model="newItemId">
+                <button class="p-2 px-4 text-white bg-blue-800 rounded" type="button" @click="addItem">
+                    Add Item
+                </button>  
+            </form>  
+
+        </div>
+        <div class="w-full md:w-1/4 border border-blue-800 rounded">
+            <nuxt-link class="border-b border-blue-800 w-full block p-2" :to="'/' + username + '/' + collection">View Collection</nuxt-link>
+            <div class="p-2 text-red-600 c">
+                <span class="cursor-pointer" v-if="confirmDelete == false" @click="confirmDelete = true">Delete Collection</span>
+                <div v-else>
+                    <div class="pb-2">Really Delete Forever?</div>
+                    <div>
+                        <div class="p-1 rounded bg-red-600 text-white inline-block mr-4 cursor-pointer" @click="deleteCollection()">Yes Delete</div>
+                        <div @click="confirmDelete = false" class="p-1 border border-red-600 text-red-600 inline-block cursor-pointer rounded">No Don't</div>
+                    </div>
+                </div>
+            </div>            
         </div>
     </div>
 </template>

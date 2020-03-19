@@ -1,16 +1,19 @@
 <template>
     <div>
-        <div v-for="collection in collections" class="border rounded p-4 my-2"> 
-            <h2 class="text-lg">{{collection}}</h2>
-            <div class="flex flex-row">
-            <nuxt-link class="pr-4" :to="'/' + username + '/' + collection">View</nuxt-link><br />
-            <nuxt-link :to="'/admin/' + username + '/' + collection">Edit</nuxt-link><br />
+        <div class="border border-blue-800 rounded mb-6">
+            <div v-for="collection in collections" class="border-b last:border-b-0 border-blue-800 p-4"> 
+                <h2 class="text-lg font-bold">{{collection}}</h2>
+                <div class="flex flex-row">
+                <nuxt-link class="pr-4" :to="'/' + username + '/' + collection">View</nuxt-link><br />
+                <nuxt-link :to="'/admin/' + username + '/' + collection">Edit</nuxt-link><br />
+                </div>
             </div>
         </div>
+        <h4 class="pb-2 text-lg">Add New Collection</h4>
         <form class="">
-            <input class="border border-blue-600" type="text" v-model="newCollectionId">
-            <button  class="px-2 text-white bg-blue-600 rounded" type="button" @click="addCollection">
-                New Collection
+            <input class="border border-blue-800 p-2 rounded" type="text" v-model="newCollectionId" placeholder="Collection title">
+            <button  class="p-2 px-4 text-white bg-blue-800 rounded" type="button" @click="addCollection">
+                Add
             </button>  
         </form>          
     </div>

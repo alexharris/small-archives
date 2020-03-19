@@ -1,5 +1,5 @@
 <template>
-<div class="bg-gray-500 cursor-pointer p-1 rounded">
+<div class="hover:bg-blue-800 inline-block p-1 text-sm rounded bg-white border border-blue-800 hover:text-white cursor-pointer">
     <div @click="signOut">Sign Out</div>
 </div>
 </template>

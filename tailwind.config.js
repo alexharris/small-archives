@@ -13,6 +13,8 @@ module.exports = {
       xl: '1000px',
     },
   },    
-  variants: {},
+  variants: {
+    borderWidth: ['responsive', 'last', 'hover', 'focus'],
+  },
   plugins: []
 }

@@ -1,14 +1,17 @@
 
 
 <template>
-    <div>
-        <div class="rounded w-full p-4 mt-4 bg-blue-200">
-
+    <div class="flex flex-col md:flex-row items-start">
+   
+        <div class="w-3/4 pr-8">
+            <h1 class="text-3xl pt-4  pb-2">Collections</h1>
+            <UserCollections />
+        </div>
+        <div class="rounded my-4 p-4 bg-blue-800 text-white w-1/4">
+            <h3 class="text-xl pb-2 font-bold">Account Info</h3>
             <strong>Email: </strong>{{signedInUser.email}}<br />
             <strong>Username: </strong>{{username}}</strong>
-        </div>     
-        <h1 class="text-3xl pt-8 pb-4">Collections</h1>
-        <UserCollections />
+        </div>          
     </div>
     
 </template>

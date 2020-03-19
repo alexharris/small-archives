@@ -57,8 +57,15 @@ export default {
   },
   methods: {  
     userSignedUp() {
-        if(this.username.length < 3) {
+        // Regex to makesure username is only alphanumeric
+        var regex = /^[a-z0-9]+$/
+
+
+        if(this.username.length < 3 ) {
             this.error = 'That username is not long enough.'
+        } else if (this.username.match(regex) == undefined) {
+            this.error = 'Usernames may only contain numbers and lowercase letters.'
+
         } else {
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
                 .catch((error) => {
@@ -95,7 +102,6 @@ export default {
         firebase.firestore().collection('users').where('username', '==', this.username)
         .get()
             .then((querySnapshot) => {
-                console.log(querySnapshot.size)
                 if(querySnapshot.size == 1) {
                     this.error = "That username is arleady taken."
                 } else {
