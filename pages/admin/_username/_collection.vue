@@ -3,13 +3,12 @@
         
         <div class="w-full md:w-3/4 mr-8">
             <div v-if="editingTitle == false">
-                
                 <h1 class="text-3xl inline-block">{{collectionTitle}}</h1>
-                <!-- <span class="pl-2 cursor-pointer" @click="editingTitle = true">edit title</span> -->
+                <span class="pl-2 cursor-pointer" @click="editingTitle = true">edit title</span>
             </div>
                 <div v-else>
                     <form class="pt-8">
-                        <input class="border border-blue-600"  type="text" v-model="newCollectionTitle">
+                        <input class="border border-blue-600"  type="text" v-model="newCollectionTitle" placeholder="New collection title">
                         <button class="bg-blue-600 rounded px-2 text-white" type="button" @click="changeCollectionTitle()">
                             Save
                         </button>  
@@ -76,6 +75,11 @@
                 confirmDelete: false
             }
         },
+        watch: {
+            '$route.params.collection': function(collection) {
+                this.collectionUrl = this.$route.params.collection
+            }
+        },
         computed: {
         },
         created() {
@@ -126,14 +130,19 @@
                 //     this.newItemId = ''
                 //     this.getCollections()
                 // })
+
+                var str = this.newCollectionTitle
+                str = str.replace(/\s+/g, '-').toLowerCase();
+                
+             
                 console.log('change')
                 firebase.firestore().collection('users').doc(this.userEmail).collection('Collections').doc(this.collectionTitle).get().then( (doc) => {
-                    console.log(doc)
                     if (doc && doc.exists) {
-                        console.log('hello')
+                        
                         var data = doc.data();
-                        console.log(data)
-                        // saves the data to 'name'
+
+                        data.url = str
+
                          firebase.firestore().collection('users').doc(this.userEmail).collection('Collections').doc(this.newCollectionTitle).set(data).then(() =>
                             // deletes the old document
                             {
@@ -142,7 +151,7 @@
                             }
                         ).then(() => {
                             console.log('reroute')
-                            this.$router.replace('/admin/' + this.username + '/' + this.newCollectionTitle) 
+                            this.$router.replace('/admin/' + this.username + '/' + str) 
                             this.editingTitle = false
                             this.collectionTitle = this.newCollectionTitle
                             this.getItems()
