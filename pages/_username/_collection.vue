@@ -17,7 +17,8 @@
                         <li>{{currentItem.metadata.date}}</li>
                         <!-- <li<p v-html="currentItem.metadata.description"></p></li> -->
                     </ul>
-                    <!-- <pre>{{currentItem}}</pre> -->
+                    <!-- <pre>{{currentItem.JPEGThumb}}</pre>
+                    <pre>{{currentItem.files}}</pre> -->
                 </div>
             </div>
         </FullScreen>    
@@ -27,10 +28,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 text-center">
                 <div v-for="item in itemMetadata"  class="flex flex-col items-center mb-8 w-48 mx-auto">
                     <!-- {{item.metadata.mediatype}} -->
+                    <!-- {{item.JPEGThumb}} -->
                     <div class="w-full pb-2 h-40">
                         <img v-if="item.metadata.mediatype != 'audio'" :src="'https://' +
                         item.server + '/' +
-                        item.dir + '/' + item.JPEGThumb" @click="makeCurrent(item)" />
+                        item.dir + '/' + item.JPEGThumb[0]" @click="makeCurrent(item)" />
                         <div v-else class="flex justify-center h-full w-full">
                             <img v-if="item.JPEGThumb != ''" :src="'https://' +
                             item.server + '/' +
@@ -101,29 +103,17 @@
                 itemMetadata['files'].forEach((file) => {
                     // console.log(file.format)
                     if(file.format == 'JPEG') {
-                        console.log(file.name)
-                        
                         itemMetadata['JPEG'].push(file.name)
-                        console.log(itemMetadata)
                     }
-                    if(file.format == 'JPEG Thumb') {
-                        console.log(file.name)
-                        
+                    
+                    if(file.format == 'JPEG Thumb') {                        
                         itemMetadata['JPEGThumb'].push(file.name)
-                        console.log(itemMetadata)
-                    } 
-                    // if(file.format == 'Animated GIF') {
-                    //     console.log(file.name)
-                        
-                    //     itemMetadata['JPEGThumb'].push(file.name)
-                    //     console.log(itemMetadata)
-                    // }                    
-                    if(itemMetadata.metadata.mediatype == 'audio' && file.format == 'PNG') {
-                        console.log(file.name)
-                        
+                    } else if(itemMetadata.metadata.mediatype == 'audio' && file.format == 'PNG') {
                         itemMetadata['JPEGThumb'].push(file.name)
-                        console.log(itemMetadata)
-                    }    
+                    } else {
+                        itemMetadata['JPEGThumb'].push('__ia_thumb.jpg')
+                    }
+                    
                     if(itemMetadata.metadata.mediatype == 'movies' && file.width !== undefined && file.source == 'original') {
                         itemMetadata['width'].push(file.width)
                         itemMetadata['height'].push(file.height)

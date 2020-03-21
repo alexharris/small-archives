@@ -75,9 +75,10 @@ export default {
                     
                 }).then((user) => {
                     console.log(user)
+
                     // Create a new user and initial collection in firestore
                         firebase.firestore().collection('users').doc(user.user.email).collection('Collections').doc('First Collection').set({
-
+                            url: 'first-collection'
                     })
                     .then(() => {
                         console.log("Document successfully written!");

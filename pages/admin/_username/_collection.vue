@@ -110,6 +110,8 @@
                 });                
             },                
             addItem() {
+                console.log(this.userEmail)
+                console.log(this.collectionTitle)
                 firebase.firestore().collection('users').doc(this.userEmail).collection('Collections').doc(this.collectionTitle).update({
                     items: firebase.firestore.FieldValue.arrayUnion(this.newItemId)
                 }).then(() => {
@@ -168,6 +170,9 @@
                 });
             },
             getCollectionTitleFromUrl() {
+                console.log(this.userEmail)
+                console.log(this.collectionUrl)
+
                 firebase.firestore().collection('users').doc(this.userEmail).collection('Collections').where("url", "==", this.collectionUrl)      
                 .get()
                 .then((querySnapshot) => {
