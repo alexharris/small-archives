@@ -1,10 +1,6 @@
 <template>
-    <div class="flex flex-row justify-center">
-        <div class="w-1/2">
-            <h1 class="text-2xl pb-4">Sign Up</h1>
-            <p>Thanks for creating an account. Please note that the username you select will be used in public URLs used to access your collections.</p>
-        </div>
-        <div class="w-1/2 ml-4 shadow-lg p-4">
+    <div class="flex flex-col justify-center">
+        <h1 class="text-2xl pb-4">Sign Up</h1>
         <FormError v-if="error">
             {{error}}
         </FormError>
@@ -36,7 +32,6 @@
 
             <div class="hover:bg-blue-800 inline-block p-2 rounded bg-white border border-blue-800 hover:text-white cursor-pointer" @click="checkUsername()">Sign Up</div>
         </form>
-        </div>
     </div>
 </template>
 <script>

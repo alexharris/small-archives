@@ -22,7 +22,8 @@
             </div>
         </FullScreen>    
         <div v-else>
-            <h1 class="text-3xl my-16 w-full text-center">{{collection}}</h1>
+            <h1 class="text-3xl my-16 w-full text-center">{{collectionTitle}}</h1>
+            
             <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 text-center">
                 <div v-for="item in itemMetadata"  class="flex flex-col items-center mb-8 w-48 mx-auto">
                     <!-- {{item.metadata.mediatype}} -->
@@ -61,7 +62,8 @@
         },
         data: function() {
             return {
-                collection: this.$route.params.collection,
+                collectionUrl: this.$route.params.collection,
+                collectionTitle: '',
                 username: this.$route.params.username,
                 userEmail: '',
                 items: [],
@@ -70,6 +72,7 @@
             }
         },
         computed: {
+
 
         },
         created() {
@@ -89,13 +92,14 @@
             },
             async getItemsMetadata(id) {                
                 const itemMetadata = await this.$axios.$get('https://archive.org/metadata/' + id)
+                // console.log(itemMetadata)
                 this.itemMetadata.push(itemMetadata)
                 itemMetadata['JPEG'] = []
                 itemMetadata['JPEGThumb'] = []
                 itemMetadata['width'] = []
                 itemMetadata['height'] = []
                 itemMetadata['files'].forEach((file) => {
-                    
+                    // console.log(file.format)
                     if(file.format == 'JPEG') {
                         console.log(file.name)
                         
@@ -108,6 +112,12 @@
                         itemMetadata['JPEGThumb'].push(file.name)
                         console.log(itemMetadata)
                     } 
+                    // if(file.format == 'Animated GIF') {
+                    //     console.log(file.name)
+                        
+                    //     itemMetadata['JPEGThumb'].push(file.name)
+                    //     console.log(itemMetadata)
+                    // }                    
                     if(itemMetadata.metadata.mediatype == 'audio' && file.format == 'PNG') {
                         console.log(file.name)
                         
@@ -115,7 +125,6 @@
                         console.log(itemMetadata)
                     }    
                     if(itemMetadata.metadata.mediatype == 'movies' && file.width !== undefined && file.source == 'original') {
-                        console.log(file.width)
                         itemMetadata['width'].push(file.width)
                         itemMetadata['height'].push(file.height)
                     }
@@ -123,8 +132,7 @@
                 })
             },          
             getCollections() {
-                firebase.firestore().collection('users').doc(this.userEmail).collection('Collections').doc(this.collection).get().then((doc) => {
-                    console.log(doc.data())
+                firebase.firestore().collection('users').doc(this.userEmail).collection('Collections').doc(this.collectionTitle).get().then((doc) => {
                     this.items = doc.data().items
                 }).then(() => {
                     this.getItemMetadata()
@@ -136,15 +144,30 @@
                 .then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
                         // doc.data() is never undefined for query doc snapshots
-                        console.log(doc.id, " => ", doc.data());
                         this.userEmail = doc.id
-                        this.getCollections()
+                        this.getCollectionTitleFromUrl() 
+                        
                     });
                 })
                 .catch(function(error) {
                     console.log("Error getting documents: ", error);
                 });                
-            },              
+            },   
+            getCollectionTitleFromUrl() {
+                firebase.firestore().collection('users').doc(this.userEmail).collection('Collections').where("url", "==", this.collectionUrl)      
+                .get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        // doc.data() is never undefined for query doc snapshots
+                        this.collectionTitle = doc.id
+                    });
+                    // this.getItems()
+                    this.getCollections()
+                })
+                .catch(function(error) {
+                    console.log("Error getting documents: ", error);
+                });   
+            }                         
         }
     }
     </script>

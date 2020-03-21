@@ -2,10 +2,10 @@
     <div>
         <div class="border border-blue-800 rounded mb-6">
             <div v-for="collection in collections" class="border-b last:border-b-0 border-blue-800 p-4"> 
-                <h2 class="text-lg font-bold">{{collection}}</h2>
+                <h2 class="text-lg font-bold">{{collection.id}}</h2>
                 <div class="flex flex-row">
-                <nuxt-link class="pr-4" :to="'/' + username + '/' + collection">View</nuxt-link><br />
-                <nuxt-link :to="'/admin/' + username + '/' + collection">Edit</nuxt-link><br />
+                <nuxt-link class="pr-4" :to="'/' + username + '/' + collection.data.url">View</nuxt-link><br />
+                <nuxt-link :to="'/admin/' + username + '/' + collection.data.url">Edit</nuxt-link><br />
                 </div>
             </div>
         </div>
@@ -35,7 +35,11 @@
             }
         },
         computed: {
-                
+            collectionUrl() {
+                var str = this.newCollectionId
+                str = str.replace(/\s+/g, '-').toLowerCase();
+                return str
+            }                
         },
         created() {
             this.getEmailFromUsername()
@@ -46,8 +50,10 @@
                 firebase.firestore().collection('users').doc(this.userEmail).collection('Collections').get().then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
                         // doc.data() is never undefined for query doc snapshots
-                        // console.log(doc.id, " => ", doc.data());
-                        this.collections.push(doc.id)
+                        console.log(doc.id, " => ", doc.data());
+                        var collectionData = {"id":doc.id, "data": doc.data()}
+                        this.collections.push(collectionData)
+                        
                     });
                 });
             },  
@@ -68,6 +74,7 @@
             },    
             addCollection() {
                 firebase.firestore().collection('users').doc(this.userEmail).collection('Collections').doc(this.newCollectionId).set({
+                    url: this.collectionUrl
                 }).then(() => {
                     this.newItemId = ''
                     this.getCollections()

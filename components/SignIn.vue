@@ -1,10 +1,6 @@
 <template>
-    <div >
-
-            <h1 class="text-2xl pb-4">Sign In</h1>
-            <p>Thanks for creating an account. Please note that the username you select will be used in public URLs used to access your collections.</p>
-
-
+    <div>
+        <h1 class="text-2xl pb-4">Sign In</h1>
         <FormError v-if="error">
             {{error}}
         </FormError>
