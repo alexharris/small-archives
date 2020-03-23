@@ -2,14 +2,15 @@
     <div>
 
         <FullScreen v-if="currentItem !== ''">
-            <span class="z-50 p-4 top-0 right-0 fixed" @click="makeCurrent('')">Close</span>
+            <span class="p-2 top-0 right-0 absolute cursor-pointer stroke-current border border-white hover:border-blue-800 m-2 rounded-full" @click="makeCurrent('')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"  stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </span>
             <div class="flex flex-row">
                 <div class="flex flex-col items-center w-3/4 px-8">
                     <iframe v-if="currentItem.metadata.mediatype == 'movies' || currentItem.metadata.mediatype == 'audio'" :width="currentItem.width" :height="currentItem.height" class="w-full pb-8" :src="'https://archive.org/embed/' + currentItem.metadata.identifier" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
                     <div class="py-4" v-if="currentItem.metadata.mediatype == 'image'" v-for="image in currentItem.JPEG">
                         <img  :src="'https://' + currentItem.server + currentItem.dir + '/' + image" />
                     </div>
-
                 </div>
                 <div class="w-1/4 ">
                     <ul>
@@ -22,7 +23,7 @@
                 </div>
             </div>
         </FullScreen>    
-        <div v-else>
+        <div>
             <h1 class="text-3xl my-16 w-full text-center">{{collectionTitle}}</h1>
             
             <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 text-center">
@@ -30,7 +31,7 @@
                     <!-- {{item.metadata.mediatype}} -->
                     <!-- {{item.JPEGThumb}} -->
                     <div class="w-full pb-2 h-40">
-                        <img v-if="item.metadata.mediatype != 'audio'" :src="'https://' +
+                        <img class="cursor-pointer" v-if="item.metadata.mediatype != 'audio'" :src="'https://' +
                         item.server + '/' +
                         item.dir + '/' + item.JPEGThumb[0]" @click="makeCurrent(item)" />
                         <div v-else class="flex justify-center h-full w-full">
@@ -43,6 +44,7 @@
                     <div class="text-center w-full">
                     <p class="text-sm pb-2">{{item.metadata.mediatype}}</p>
                     <p class="text-lg">{{item.metadata.title}}</p>
+                    
                     </div>
                 </div>
             </div>            
@@ -101,19 +103,26 @@
                 itemMetadata['width'] = []
                 itemMetadata['height'] = []
                 itemMetadata['files'].forEach((file) => {
-                    // console.log(file.format)
+                    // If its a JPEG, get the filename
                     if(file.format == 'JPEG') {
                         itemMetadata['JPEG'].push(file.name)
                     }
                     
-                    if(file.format == 'JPEG Thumb') {                        
+                    // If its audio and has a PNG, get that
+                    if(itemMetadata.metadata.mediatype == 'audio' && file.format == 'PNG') {
                         itemMetadata['JPEGThumb'].push(file.name)
-                    } else if(itemMetadata.metadata.mediatype == 'audio' && file.format == 'PNG') {
-                        itemMetadata['JPEGThumb'].push(file.name)
-                    } else {
-                        itemMetadata['JPEGThumb'].push('__ia_thumb.jpg')
                     }
+
+                    // If its a JPEG thumb, or PNG for audio, get image, else get the ia_thumb 
+                    if( itemMetadata.metadata.mediatype !== 'audio') {                 
+                        if(file.format == 'JPEG Thumb') {
+                            itemMetadata['JPEGThumb'].push(file.name)
+                        } else {
+                            itemMetadata['JPEGThumb'].push('__ia_thumb.jpg')
+                        }      
+                    } 
                     
+                    // For movies, get the width and height
                     if(itemMetadata.metadata.mediatype == 'movies' && file.width !== undefined && file.source == 'original') {
                         itemMetadata['width'].push(file.width)
                         itemMetadata['height'].push(file.height)
