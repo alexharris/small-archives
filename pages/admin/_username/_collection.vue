@@ -35,19 +35,27 @@
                 </form>  
 
         </div>
-        <div class="w-full md:w-1/4 border border-blue-800 rounded">
-            <nuxt-link class="border-b border-blue-800 w-full block p-2" :to="'/' + username + '/' + collectionUrl">View Collection</nuxt-link>
-            <div class="p-2 text-red-600 c">
-                <span class="cursor-pointer" v-if="confirmDelete == false" @click="confirmDelete = true">Delete Collection</span>
-                <div v-else>
-                    <div class="pb-2">Really Delete Forever?</div>
-                    <div>
-                        <div class="p-1 rounded bg-red-600 text-white inline-block mr-4 cursor-pointer" @click="deleteCollection()">Yes Delete</div>
-                        <div @click="confirmDelete = false" class="p-1 border border-red-600 text-red-600 inline-block cursor-pointer rounded">No Don't</div>
+        <div class="w-full md:w-1/4">
+            <div class="border border-blue-800 rounded">
+                <nuxt-link class="border-b border-blue-800 w-full block p-2" :to="'/' + username + '/' + collectionUrl">View Collection</nuxt-link>
+                <div class="p-2 text-red-600 c">
+                    <span class="cursor-pointer" v-if="confirmDelete == false" @click="confirmDelete = true">Delete Collection</span>
+                    <div v-else>
+                        <div class="pb-2">Really Delete Forever?</div>
+                        <div>
+                            <div class="p-1 rounded bg-red-600 text-white inline-block mr-4 cursor-pointer" @click="deleteCollection()">Yes Delete</div>
+                            <div @click="confirmDelete = false" class="p-1 border border-red-600 text-red-600 inline-block cursor-pointer rounded">No Don't</div>
+                        </div>
                     </div>
-                </div>
-            </div>            
+                </div>            
+            </div>
+            <div class="mt-8 p-2 bg-blue-100 rounded">
+                <h3 class="font-bold pb-2">Tips</h3>
+                <p class="pb-4">Small Archives can currently only accept IDs for Images, Movies, and Audio.</p>
+                <p>Having trouble with an item? Submit faulty IDs to our <a class="underline hover:no-underline" href="https://forms.gle/W69zSPPiB2W4cSuNA">faulty item submission form</a>. </p>
+            </div>
         </div>
+        
     </div>
 </template>
 <script>

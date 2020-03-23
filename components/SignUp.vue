@@ -11,6 +11,7 @@
             <div class="my-2">
                 <label for="inputUsername">Username</label><br />
                 <input class="form-control border border-blue-800 p-2 w-full" id="inputUsername" placeholder="Username" v-model="username">
+                <p class="text-sm">This will be used to create the public URLs for your collections.</p>
             </div>
             </div>        
             <!-- Email -->

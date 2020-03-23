@@ -3,11 +3,11 @@
 <template>
     <div class="flex flex-col md:flex-row items-start">
    
-        <div class="w-3/4 pr-8">
+        <div class="w-full md:w-3/5 md:pr-8">
             <h1 class="text-3xl pt-4  pb-2">Collections</h1>
             <UserCollections />
         </div>
-        <div class="rounded my-4 p-4 bg-blue-800 text-white w-1/4">
+        <div class="rounded my-8 p-4 bg-blue-800 text-white w-full md:w-2/5">
             <h3 class="text-xl pb-2 font-bold">Account Info</h3>
             <strong>Email: </strong>{{signedInUser.email}}<br />
             <strong>Username: </strong>{{username}}</strong>

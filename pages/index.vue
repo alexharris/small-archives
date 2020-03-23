@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col container mx-auto  pt-4">
+  <div class="flex flex-col container mx-auto  py-4">
     <div>
       <h1 class="text-2xl">Small Archives</h1>
-      <p class="py-8 text-xl">Small Archives is a tool for creating collections out of Internet Archive data. You just need to enter a list of Internet Archive item IDs, and Small Archives will provide a page for that collection:</p>
+      <p class="py-8 text-xl">Small Archives is a tool for creating collections out of Internet Archive data. Just enter a list of Internet Archive item IDs to create a collection page.</p>
       <div class="flex flex-col md:flex-row items-center border-b-2 border-blue-800 pb-8 mb-8">
         <img src="~/assets/birds-admin.png">
         <span class="text-4xl">
@@ -14,7 +14,13 @@
     </div>
     <div class="flex flex-col md:flex-row">
     <div class="w-full md:w-1/2 md:order-2 p-4">
-      Hello
+      <div class="bg-blue-100 rounded p-4">
+        <h3 class="text-xl font-bold border-b border-blue-800 pb-2 mb-4">Demo</h3>
+        <p class="pb-4">To test out Small Archives, sign in to the Demo project:</p>
+        <p><strong>Email:</strong> smallarchives@gmail.com</p>
+        <p class="pb-4"><strong>Password:</strong> demo!@@</p>
+        <p>Or view the <a class="underline hover:no-underline cursor-pointer font-bold" href="/demo/demo">demo collection</a>.</p>
+      </div>
     </div>
     <div class="w-full md:w-1/2 md:order-1">
       <div>
@@ -27,7 +33,7 @@
       </div>
     </div>
     </div>
-    <p class="pt-8 text-center">Small Archives is created by <a href="http://twitter.com/alexharris6">@alexharris6</a></p>
+    <p class="pt-8 text-center">Small Archives is created by <a class="underline hover:no-underline cursor-pointer" href="http://twitter.com/alexharris6">@alexharris6</a></p>
   </div>
 
 </template>
