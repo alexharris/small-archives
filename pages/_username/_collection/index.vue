@@ -27,7 +27,10 @@
                     </div>
                 </div>
             </div>            
-        </div>    
+        </div>  
+        <div class="text-center pt-8">
+            <p>Created by <strong>{{username}}</strong> with <nuxt-link class="underline hover:no-underline" :to="'/'">Small Archives</nuxt-link>.</p>
+        </div>
     </div>
 </template>
 <script>

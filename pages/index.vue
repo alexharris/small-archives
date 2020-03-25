@@ -11,32 +11,31 @@
         </span>
         <div class="text-center">
           <img src="~/assets/birds-collection.png">
-          
         </div>
       </div>
     </div>
     <a href="/demo/small-archives-demo" class="w-64 mt-12 mb-24 mx-auto text-center bg-blue-800 text-white hover:bg-blue-200 hover:text-blue-800 text-xl rounded p-2 cursor-pointer">View Demo</a>
-    <div class="flex flex-col md:flex-row">
-    <div class="w-full md:w-1/2 md:order-2 p-4">
-      <div class="bg-blue-100 rounded p-4">
-        <h3 class="text-xl font-bold border-b border-blue-800 pb-2 mb-4">Demo</h3>
-        <p class="pb-4">To test out Small Archives, sign in to the Demo project:</p>
-        <p><strong>Email:</strong> smallarchives@gmail.com</p>
-        <p class="pb-4"><strong>Password:</strong> demo!@@</p>
-        <p>Or view the <a class="underline hover:no-underline cursor-pointer font-bold" href="/demo/small-archives-demo">demo collection</a>.</p>
+    <div class="flex flex-col md:flex-row border-t border-b border-blue-800 py-8 mb-8">
+      <div class="w-full md:w-1/2 md:order-2 p-4">
+        <div class="bg-blue-100 rounded p-4">
+          <h3 class="text-xl font-bold border-b border-blue-800 pb-2 mb-4">Demo</h3>
+          <p class="pb-4">Sign in to the Demo project to test out Small Archives' administrative backend:</p>
+          <p><strong>Email:</strong> smallarchives@gmail.com</p>
+          <p class="pb-4"><strong>Password:</strong> demo!@@</p>
+        </div>
+      </div>
+      <div class="w-full md:w-1/2 md:order-1">
+        <div>
+          <div v-bind:class="{ 'bg-gray-400': !showSignIn }" class="hover:bg-blue-800 inline-block p-2 bg-white border border-b-0 border-blue-800 hover:text-white cursor-pointer" @click="toggleForms()">Sign In</div>
+          <div v-bind:class="{ 'bg-gray-400': showSignIn }" class="hover:bg-blue-800 inline-block p-2 bg-white border border-b-0 border-blue-800 hover:text-white cursor-pointer" @click="toggleForms()">Sign Up</div>
+        </div>
+        <div class="border border-blue-800 p-4 ">
+          <SignIn v-if="showSignIn" />
+          <SignUp v-if="!showSignIn" />
+        </div>
       </div>
     </div>
-    <div class="w-full md:w-1/2 md:order-1">
-      <div>
-        <div v-bind:class="{ 'bg-gray-400': !showSignIn }" class="hover:bg-blue-800 inline-block p-2 bg-white border border-b-0 border-blue-800 hover:text-white cursor-pointer" @click="toggleForms()">Sign In</div>
-        <div v-bind:class="{ 'bg-gray-400': showSignIn }" class="hover:bg-blue-800 inline-block p-2 bg-white border border-b-0 border-blue-800 hover:text-white cursor-pointer" @click="toggleForms()">Sign Up</div>
-      </div>
-      <div class="border border-blue-800 p-4 ">
-        <SignIn v-if="showSignIn" />
-        <SignUp v-if="!showSignIn" />
-      </div>
-    </div>
-    </div>
+    <RecentCollections />
     <p class="pt-8 text-center">Small Archives is created by <a class="underline hover:no-underline cursor-pointer" href="http://twitter.com/alexharris6">@alexharris6</a></p>
   </div>
 
@@ -45,12 +44,14 @@
 <script>
 import SignIn from '~/components/SignIn.vue'
 import SignUp from '~/components/SignUp.vue'
+import RecentCollections from '~/components/RecentCollections.vue'
 import firebase from 'firebase' 
 
 export default {
   components: {
     SignIn,
-    SignUp
+    SignUp,
+    RecentCollections
   },
   data() {
     return {

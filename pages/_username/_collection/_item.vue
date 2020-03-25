@@ -1,9 +1,11 @@
 <template>
     <div>
         <!-- <pre>{{item.metadata}}</pre> -->
+        
         <div class="border-b border-blue-800 py-2">
             <nuxt-link :to="'/' + this.$route.params.username + '/' + this.$route.params.collection">Back</nuxt-link>
         </div>
+        <h1 class="lg:hidden text-2xl font-bold py-6">{{item.metadata.title}}</h1>
         <div class="flex flex-col lg:flex-row">
             <div class="flex flex-col items-center lg:w-8/12 lg:px-4 my-4">
                 <!-- Iframe for video and audio -->
@@ -18,11 +20,11 @@
                 <div class="lg:p-4">
                 
                     <ul>
-                        <li class="text-xl"><strong>{{item.metadata.title}}</strong></li>
+                        <li class="text-xl hidden lg:block"><strong>{{item.metadata.title}}</strong></li>
                         <li class="pt-4">{{item.metadata.date}}</li>
                         <li class="pt-4"><div  v-html="item.metadata.description"></div></li>
                     </ul>
-                    <a :href="'https://archive.org/details/' + item.metadata.identifier" class="inline-block mt-4 p-2 text-center bg-blue-800 text-white hover:text-blue-800 hover:bg-blue-100 rounded">
+                    <a :href="'https://archive.org/details/' + item.metadata.identifier" class="inline-block mt-4 p-2 text-center border text-blue-800 border-blue-800 text-white hover:bg-blue-100 rounded">
                         View on Internet Archive
                     </a>
 
