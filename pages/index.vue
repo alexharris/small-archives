@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <a href="/demo/demo" class="w-64 mt-12 mb-24 mx-auto text-center bg-blue-800 text-white hover:bg-blue-200 hover:text-blue-800 text-xl rounded p-2 cursor-pointer">View Demo</a>
+    <a href="/demo/small-archives-demo" class="w-64 mt-12 mb-24 mx-auto text-center bg-blue-800 text-white hover:bg-blue-200 hover:text-blue-800 text-xl rounded p-2 cursor-pointer">View Demo</a>
     <div class="flex flex-col md:flex-row">
     <div class="w-full md:w-1/2 md:order-2 p-4">
       <div class="bg-blue-100 rounded p-4">
@@ -23,7 +23,7 @@
         <p class="pb-4">To test out Small Archives, sign in to the Demo project:</p>
         <p><strong>Email:</strong> smallarchives@gmail.com</p>
         <p class="pb-4"><strong>Password:</strong> demo!@@</p>
-        <p>Or view the <a class="underline hover:no-underline cursor-pointer font-bold" href="/demo/demo">demo collection</a>.</p>
+        <p>Or view the <a class="underline hover:no-underline cursor-pointer font-bold" href="/demo/small-archives-demo">demo collection</a>.</p>
       </div>
     </div>
     <div class="w-full md:w-1/2 md:order-1">
