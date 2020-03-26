@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col container mx-auto  py-4">
     <div>
-      <h1 class="text-2xl">Small Archives</h1>
-      <p class="py-8 text-xl">Small Archives is a tool for creating collections out of Internet Archive data. Just enter a list of Internet Archive item IDs to create a collection page. We are actively working on adding new functionality and making things better.</p>
+      <h1 class="text-2xl font-bold">Small Archives</h1>
+      <p class="py-8 text-xl">Small Archives is a tool for creating collections out of Internet Archive data. Just enter a list of Internet Archive item IDs to create a collection page.</p>
       <div class="flex flex-col md:flex-row items-center border-b border-blue-800 pb-8 mb-8">
         <img src="~/assets/birds-admin.png">
         <span class="text-4xl p-8">

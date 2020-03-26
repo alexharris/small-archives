@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col lg:flex-row">
-        <div class="w-full lg:w-1/2">
+        <div class="w-full lg:w-1/2 mb-8">
             <h3 class="text-xl pb-4"><strong>Recent Collections</strong></h3>
             <ul>
                 <li><a class="underline hover:no-underline" href="/demo/small-archives-demo">Small Archives Demo</a></li>
