@@ -2,23 +2,25 @@
     <div>
         <!-- GRID -->
         <div class="border border-blue-800 my-2">
+            
             <h1 class="text-3xl mt-8 mb-10 w-full text-center font-bold">{{collectionTitle}}</h1>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 text-center">
                 <div v-for="item in itemMetadata"  class="flex flex-col items-center mb-8 w-48 mx-auto">
-                    <!-- {{item.metadata.mediatype}} -->
-                    <!-- {{item.JPEGThumb}} -->
                     <div class="w-full pb-2 ">
-                        <nuxt-link v-if="item.metadata.mediatype != 'audio'" :to="collectionUrl + '/' + item.metadata.identifier">
-                            <img class="cursor-pointer w-full"  :src="'https://' + item.server + '/' + item.dir + '/' + item.JPEGThumb[0]"  />
+                        <nuxt-link  :to="collectionUrl + '/' + item.metadata.identifier">
+                            <img v-if="item.metadata.mediatype != 'audio'" :src="'https://archive.org/services/img/' + item.metadata.identifier" />
+                            <!-- <img class="cursor-pointer w-full"  :src="'https://' + item.server + '/' + item.dir + '/' + item.JPEGThumb[0]"  /> -->
+                            <div v-else class="w-full flex items-center justify-center  py-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2c5282" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                            </div>                            
                         </nuxt-link>
-                        <nuxt-link v-else :to="collectionUrl + '/' + item.metadata.identifier" class="flex justify-center h-full w-full">
+                        
+                        <!-- <nuxt-link v-else :to="collectionUrl + '/' + item.metadata.identifier" class="flex justify-center h-full w-full">
                             <img v-if="item.JPEGThumb != ''" :src="'https://' +
                             item.server + '/' +
                             item.dir + '/' + item.JPEGThumb[0]" />
-                            <div v-else class="w-full flex items-center justify-center  py-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2c5282" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-                            </div>
-                        </nuxt-link>
+     
+                        </nuxt-link> -->
                     </div>
                     <div class="text-center w-full p-1">
                         <p class="text-sm pb-2">{{item.metadata.mediatype}}</p>
@@ -80,6 +82,8 @@
                 const itemMetadata = await this.$axios.$get('https://archive.org/metadata/' + id)
                 // console.log(itemMetadata)
                 this.itemMetadata.push(itemMetadata)
+                // console.log(itemMetadata.metadata.identifier)
+                // console.log(itemMetadata)
                 itemMetadata['JPEG'] = []
                 itemMetadata['JPEGThumb'] = []
                 itemMetadata['width'] = []
@@ -98,8 +102,11 @@
                     // If its a JPEG thumb, or PNG for audio, get image, else get the ia_thumb 
                     if( itemMetadata.metadata.mediatype !== 'audio') {                 
                         if(file.format == 'JPEG Thumb') {
+                            console.log('HELLO')
+                            console.log(file.name)
                             itemMetadata['JPEGThumb'].push(file.name)
                         } else {
+                            console.log('GOODBYE')
                             itemMetadata['JPEGThumb'].push('__ia_thumb.jpg')
                         }      
                     } 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- <pre>{{item.metadata}}</pre> -->
+        <!-- <pre>{{item}}</pre> -->
         
         <div class="border-b border-blue-800 py-2">
             <nuxt-link :to="'/' + this.$route.params.username + '/' + this.$route.params.collection">Back</nuxt-link>
@@ -10,7 +10,7 @@
             <div class="flex flex-col items-center lg:w-8/12 lg:px-4 my-4">
                 <!-- Iframe for video and audio -->
                 <iframe v-if="item.metadata.mediatype == 'movies' || item.metadata.mediatype == 'audio'" :width="item.width" :height="item.height" class="w-full pb-8" :src="'https://archive.org/embed/' + item.metadata.identifier" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
-                <!-- JPEGs for images -->
+                <!-- JPEGs/PNGs for images -->
                 <div class="pb-4" v-if="item.metadata.mediatype == 'image'" v-for="image in item.JPEG">
                     <img  :src="'https://' + item.server + item.dir + '/' + image" />
                 </div>
@@ -71,10 +71,14 @@
                 this.item['height'] = []
 
                 this.item['files'].forEach((file) => {
+                    console.log(file)
                     // If its a JPEG, get the filename
                     if(file.format == 'JPEG') {
-                        console.log('JPEG')
                         this.item['JPEG'].push(file.name)
+                    } else if (file.format == 'PNG') {
+                    
+                        this.item['JPEG'].push(file.name)
+                    
                     }
             
                     // For movies, get the width and height
