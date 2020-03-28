@@ -9,7 +9,7 @@
         <div class="flex flex-col lg:flex-row">
             <div class="flex flex-col items-center lg:w-8/12 lg:px-4 my-4">
                 <!-- Iframe for video and audio -->
-                <iframe v-if="item.metadata.mediatype == 'movies' || item.metadata.mediatype == 'audio'" :width="item.width" :height="item.height" class="w-full pb-8" :src="'https://archive.org/embed/' + item.metadata.identifier" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
+                <iframe v-if="item.metadata.mediatype == 'movies' || item.metadata.mediatype == 'audio' || item.metadata.mediatype == 'data'" :width="item.width" :height="item.height" class="w-full pb-8" :src="'https://archive.org/embed/' + item.metadata.identifier" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
                 <!-- JPEGs/PNGs for images -->
                 <div class="pb-4" v-if="item.metadata.mediatype == 'image'" v-for="image in item.JPEG">
                     <img  :src="'https://' + item.server + item.dir + '/' + image" />
@@ -82,10 +82,13 @@
                     }
             
                     // For movies, get the width and height
-                    if(this.item.metadata.mediatype == 'movies' && file.width !== undefined && file.source == 'original') {
-                        this.item['width'].push(file.width)
-                        this.item['height'].push(file.height)
+                    if(this.item.metadata.mediatype == 'movies' || this.item.metadata.mediatype == 'data') {
+                        if(file.width !== undefined && file.source == 'original') {
+                            this.item['width'].push(file.width)
+                            this.item['height'].push(file.height)
+                        }
                     }
+
 
                 })
             },                        
