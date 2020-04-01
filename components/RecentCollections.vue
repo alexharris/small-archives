@@ -5,6 +5,7 @@
             <ul>
                 <li><a class="underline hover:no-underline" href="/demo/small-archives-demo">Small Archives Demo</a></li>
                 <li><a class="underline hover:no-underline" href="/test/birds-of-lake-merritt">Birds of Lake Merritt</a></li>
+                <li><a class="underline hover:no-underline" href="/demo/cats">Cats</a></li>
             </ul>   
             <!-- <ul>
                 <li v-for="collection in collections">

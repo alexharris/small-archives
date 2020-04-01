@@ -51,7 +51,7 @@
             </div>
             <div class="mt-8 p-2 bg-blue-100 rounded">
                 <h3 class="font-bold pb-2">Tips</h3>
-                <p class="pb-4">Small Archives can currently only accept IDs for Images, Movies, and Audio.</p>
+                <p class="pb-4">Small Archives can currently only accept IDs for Images, Movies, Audio, and Books.</p>
                 <p>Having trouble with an item? Submit faulty IDs to our <a class="underline hover:no-underline" href="https://forms.gle/W69zSPPiB2W4cSuNA">faulty item submission form</a>. </p>
             </div>
         </div>

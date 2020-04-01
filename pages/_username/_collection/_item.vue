@@ -14,6 +14,9 @@
                 <div class="pb-4" v-if="item.metadata.mediatype == 'image'" v-for="image in item.JPEG">
                     <img  :src="'https://' + item.server + item.dir + '/' + image" />
                 </div>
+                <!-- {{item.metadata}} -->
+                <img class="pb-4" v-if="item.metadata.mediatype == 'texts'" v-for="i in bookPreviewPages" :src="'https://' + item.d2 +'/BookReader/BookReaderPreview.php?id=' + item.metadata.identifier +'&subPrefix=' + item.metadata.identifier + '&itemPath=' + item.dir + '&server=' + item.d1 + '&page=leaf' + i + '&fail=preview&&scale=4&rotate=0'" />
+
             </div>
             <div class="lg:w-4/12">
             
@@ -47,6 +50,7 @@
         data: function() {
             return {
                 itemId: this.$route.params.item,
+                bookPreviewPages: 10,
                 item: {
                     metadata: []
                 }
